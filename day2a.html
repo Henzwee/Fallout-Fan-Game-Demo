@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 2 - Chose not to eat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        #game-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        button {
+            font-family: 'Roboto Mono', monospace;
+            display: block;
+            width: 100%; /* Optional: makes buttons stretch to the container width */
+            background: #005f00;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+             background: #008e00;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-content"></div>
+    </div>
+
+    <script>
+        function startGame() {
+            const characterName = localStorage.getItem('characterName');
+            const sugarBombs = localStorage.getItem('sugarBombs');
+
+            if (characterName) {
+                gameStart(characterName, sugarBombs);
+            } else {
+                alert("No character name found. Please start again from Day 1.");
+                window.location.href = 'day1.html'; // Redirect to Day 1 if no name found
+            }
+        }
+
+        function gameStart(characterName, sugarBombs) {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <h1>Day 2</h1>
+        <img src="roomDirty.png" alt="Dirty Room" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+        <p>You wake up to your stomach growling and the worst headache you’ve ever had. Everything seems off. This is your room, but something is very different about it. Your lights are dim and flickering, if even on at all. The walls are dirty with chipped and peeling paint. You notice some blood on the floor. It’s very old and crusty. It looks like it’s been there for years. How is that possible?</p>
+        <p>You step outside your room. Maybe someone else will know what’s going on. As you look around, you are shocked to see that you don’t recognize anybody. Everyone is still wearing vault suits, but there’s no way these are the same people. Suddenly, you hear someone come up behind you.</p>
+        <button onclick="turnAround('${characterName}', '${sugarBombs}')">Turn around</button>
+    `;
+}
+
+        function turnAround(characterName, sugarBombs) {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <img src="karaDirty.png" alt="Dirty Kara" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+                <p>Kara - "Hey ${characterName}!"</p>
+                <button onclick="whatHappened()">Holy shit, what happened to you!?</button>
+                <button onclick="isThatYou()">Kara? Is… is that you?</button>
+                <button onclick="whatsGoingOn()">What’s going on here?</button>
+                <button onclick="youLetYourselfGo()">Jeez Kara, you really let yourself go. You should go shower!</button>
+    `;
+}
+
+
+        function whatHappened() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <img src="karaDirty.png" alt="Dirty Kara" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+                <p>Kara: "What are you talking about?"</p>
+                <button onclick="nothing()">Uh, nothing. What’s up?</button>
+                <button onclick="disgusting()">You look disgusting.</button>
+            `;
+        }
+
+        function isThatYou() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <img src="karaDirty.png" alt="Dirty Kara" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+                <p>Kara: "Well, who else would it be, silly! I was just wondering if you’ve heard anything about Toby. I didn’t see him again this morning, and now his room has been cleared out!"</p>
+                <button onclick="checkOut()">I’ll go check it out. (go to Toby’s room)</button>
+                <button onclick="weird()">Huh, weird. (go to security office)</button>
+            `;
+        }
+
+        function whatsGoingOn() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <img src="karaDirty.png" alt="Dirty Kara" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+                <p>Kara: "I was just about to ask you! You must have seen that Toby’s room has been cleared out then. I hope it’s nothing serious!"</p>
+                <button onclick="checkOut()">I’ll go check it out. (go to Toby’s room)</button>
+                <button onclick="weird()">Huh, weird. (go to security office)</button>    
+            `;
+        }
+
+        function youLetYourselfGo() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <img src="karaDirty.png" alt="Dirty Kara" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+                <p>Kara: "Oh you’re such a kidder! I have been breaking quite the sweat down in the reactor room today, though. Maybe I should shower! By the way, have you seen Toby? I noticed this morning that his room has been cleared out."</p>
+                <button onclick="checkOut()">I’ll go check it out. (go to Toby’s room)</button>
+                <button onclick="weird()">Huh, weird. (go to security office)</button>
+            `;
+        }
+
+        function nothing() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <img src="karaDirty.png" alt="Dirty Kara" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+                <p>Kara: "I was just wondering if you had heard any news about Toby? I didn’t see him again this morning, and his room has been cleared out!"</p>
+                <button onclick="checkOut()">I’ll go check it out. (go to Toby’s room)</button>
+                <button onclick="weird()">Huh, weird. (go to security office)</button>
+            `;
+        }
+
+        function disgusting() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <img src="karaDirty.png" alt="Dirty Kara" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+                <p>Kara: "Oh my, you’re probably right! I’ve been down in the reactor room all morning and that can definitely dirty a girl up! Say, have you heard from Toby? I didn’t see him again this morning, and his room has been cleared out!"</p>
+                <button onclick="checkOut()">I’ll go check it out. (go to Toby’s room)</button>
+                <button onclick="weird()">Huh, weird. (go to security office)</button>
+            `;
+        }
+
+        function checkOut() {
+            goToTobysRoom();
+        }
+
+        function weird() {
+            goToSecurityOffice();
+        }
+
+        function goToTobysRoom() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <p>Toby normally ran a pretty tight ship. He polished his Vault-Tec issued 10mm every day at the end of his shift. You’ve never even seen him have to use it. But his room looks like it’s been abused for years. You don’t see any of Toby’s personal belongings, but you don’t recognize anything in this wreck of a room. You notice a rat on the floor near the rusty and misshapen bed. It’s sitting on its back legs leaning into a Sugar Bomb. It pulls its head out and looks at you. Some crumbs fall out of its mouth as it calmly chews its food. The way it looks at you reminds you of the way the other dwellers are looking at you. It slowly raises its hand, as if it were waving to you.</p>
+                <button onclick="goToSecurityOffice()">Go to Security Office</button>
+            `;
+        }
+
+        function leaveThem() {
+    localStorage.setItem('sugarBombs', 'left'); // Set the status of Sugar Bombs
+    // ... (rest of the function)
+}
+
+function putBack() {
+    localStorage.setItem('sugarBombs', 'putBack'); // Set the status of Sugar Bombs
+    // ... (rest of the function)
+}
+
+function goToSecurityOffice() {
+    const characterName = localStorage.getItem('characterName');
+    const sugarBombs = localStorage.getItem('sugarBombs');
+    console.log("Sugar Bombs Status when going to security office:", sugarBombs); // Debug log
+    const gameContent = document.getElementById("game-content");
+
+    let content = `<p>Charlie: "Good Morning ${characterName}! Toby is out again today. You mind another day in the rations room?"</p>`;
+
+    if (sugarBombs === 'putBack') {
+        content += `<button onclick="suspectSugarBombs()">I think Toby was snacking on Sugar Bombs during his shift… and I think they may have been laced or something.</button>`;
+    }
+
+    content += `
+        <button onclick="noticeDifferent()">You notice anything… different?</button>
+        <button onclick="goToRationsRoom()">Uh, yeah. Sure. (go to rations room)</button>
+    `;
+
+    gameContent.innerHTML = content;
+}
+
+
+        function suspectSugarBombs() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML += `
+                <p>Charlie: "Ha! I knew it. Poor bastard gave himself a tummy ache. I wouldn't worry about anything being laced around here though. Overseer wouldn't allow anything like that!"</p>
+            `;
+        }
+
+        function noticeDifferent() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <p>Charlie: "Nope. Seems like another perfect day down here in the vault!"</p>
+                <button onclick="goToRationsRoom()">Just checking. (go to rations room)</button>
+                <button onclick="really()">Really? You don’t think things are looking a little rough?</button>
+            `;
+        }
+
+        function really() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <p>Charlie: "Only thing that looks rough around here is you. You feeling alright?"</p>
+                <button onclick="badSleep()">*Lie* Yeah, just didn't sleep well last night.</button>
+                <button onclick="upWithFood()">I think I was drugged or something.</button>
+            `;
+        }
+
+        function upWithFood() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <p>Charlie: "Don’t be silly. The Overseer wouldn’t allow anything like that to happen, but you not guarding your post might. Now get!"</p>
+                <button onclick="goToRationsRoom()">Go to rations room</button>
+            `;
+        }
+
+        function badSleep() {
+            const gameContent = document.getElementById("game-content");
+            gameContent.innerHTML = `
+                <p>Charlie: "A good meal always helps me sleep, haha!"</p>
+                <button onclick="goToRationsRoom()">Go to rations room</button>
+            `;
+        }
+
+        function goToRationsRoom() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Just like every other room, the rations room was falling apart. The food remains organized on its shelves, but that’s the only similarity. The boxes are sealed, but still dirty and beat up. You notice Jillian sitting on a stool towards the back of the room. She works security with you, but you don’t see her often as she normally works the night shift.</p>
+        <p>Jillian: "Well look who finally decided to show up. I hope this place is more entertaining during the day because nothing happens here at night."</p>
+        <button onclick="expectingMe()">Were you expecting me?</button>
+        <button onclick="notReally()">Not really.</button>
+        <button onclick="anythingWeird()">You notice anything weird around here?</button>
+    `;
+}
+
+function expectingMe() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "I heard you were covering for Toby. Just wanted to say hi before I clocked out for the night!"</p>
+        <button onclick="umHi()">Oh. Um, hi.</button>
+        <button onclick="seeYou()">Good to see you!</button>
+    `;
+}
+
+function umHi() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "You’re seeming a little sluggish today. Is everything ok?"</p>
+        <button onclick="allIsFucked()">No! Can’t you see that everything is fucked up!</button>
+        <button onclick="itsNothing()">Yeah, it’s nothing.</button>
+    `;
+}
+
+function allIsFucked() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "Oh my, haha! You’re starting to sound like the Overseer! See you later!"</p>
+        <button onclick="goToConvoEnd()">Bye</button>
+    `;
+}
+
+function itsNothing() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "Ok, then. See you later!"</p>
+        <button onclick="goToConvoEnd()">Bye</button>
+    `;
+}
+
+function seeYou() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "Good to see you too! Well I better get going. I’m ready for a good meal and a nap."</p>
+        <button onclick="goToConvoEnd()">Bye</button>
+    `;
+}
+
+function notReally() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "Sort of what I figured. Thought I would at least entertain you with my company for a minute. I am going to need a nap soon though."</p>
+        <button onclick="napSoon()">I won’t keep you from it. I’ll talk to you later.</button>
+        <button onclick="anythingWeird()">You notice anything weird around here?</button>
+    `;
+}
+
+function napSoon() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "Alright, talk to you later!"</p>
+        <button onclick="goToConvoEnd()">Bye</button>
+    `;
+}
+
+function anythingWeird() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Jillian: "You mean other than Toby up and vanishing? Haha!"</p>
+        <button onclick="goToConvoEnd()">Nevermind. (End Conversation)</button>
+        <button onclick="allIsFucked()">Am I the only one who can see how fucked up evrything is!?</button>
+    `;
+}
+
+
+// Scene: Rations Room - After Jillian Leaves
+function goToConvoEnd() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>The door closes behind Jillian. You are alone. The rustling of the Mr. Handy’s is audible through the wall.</p>
+        <p>The door to the preparation room is closed but unlocked. Maybe there could be some insight into what’s going on in there.</p>
+        <button onclick="prepRoom()">Enter preparation room</button>
+    `;
+}
+
+// Scene: Preparation Room
+function prepRoom() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>The door creaks as it slides open. It’s by far the cleanest room you’ve seen all day. Clean shiny tables. New-looking trays and instruments. The Mr. Handy’s don’t even acknowledge your presence. They continue seamlessly flying and working around each other. Some of them are packing food products and mixing ingredients. The rest are working with a strange white powder. At first, you mistook it for sugar, but there’s too much of it and they seem extra careful handling it.</p>
+        <p>You notice a terminal in the back corner of the room.</p>
+        <button onclick="activateTerminal1()">Activate terminal</button>
+    `;
+}
+
+// Scene: Terminal Menu
+function activateTerminal1() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>ROBBO INDUSTRIES (TM) TERMINAL PROTOCOL</p>
+        <p>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</p>
+        <p>- SERVER 1 -</p>
+        <p>SELECT LOG</p>
+        <button onclick="log22278()">2/22/65</button>
+        <button onclick="log71265()">7/12/65</button>
+        <button onclick="log51866()">5/18/66</button>
+        <button onclick="exitTerminal1()">EXIT</button>
+    `;
+}
+
+// Scene: Terminal Logs
+function log22278() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>I DIDN’T THINK THEY COULD GET ANY DUMBER. VAULT-TEC MADE IT CLEAR THEY DIDN’T WANT THEM TO WAKE UP TO ANY CAPACITY, SO MY HANDS ARE KIND OF TIED WHEN IT COMES TO LOWERING THE DOSAGE. BUT AFTER GENERATIONS OF THIS CRAP IN THEIR SYSTEMS, THEY’VE BECOME BRAINDEAD. I ACTUALLY SAW ONE OF THESE POOR BASTARDS KNAWING ON HIS OWN ARM. ONCE HE DREW BLOOD HE STARTED LAUGHING.</p>
+        <button onclick="activateTerminal1()">Back</button>
+    `;
+}
+
+function log71265() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>THEY’RE BECOMING SLUGGISH LATELY. I THINK IT’S TIME TO UP THE DOSAGE. I’M GOING TO MISS NOT HAVING THEM ALL SMILE AT ME CONSTANTLY.</p>
+        <button onclick="activateTerminal1()">Back</button>
+    `;
+}
+
+function log51866() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>THOMAS FELL OFF THE BALCONY AND BROKE HIS NECK LAST WEEK. I CONSIDER HIM LUCKY. AT LEAST HE GOT TO LEAVE THIS HELL HOLE. THE INTERESTING THING IS NO ONE EVEN SEEMS TO REMEMBER HIM ANYMORE. I GUESS DEALING WITH LOSS WOULD BE IMPOSSIBLE WHEN YOU CAN’T FACE REALITY. WHAT IS GOING ON IN THOSE TINY LITTLE HEADS OF THEIRS?</p>
+        <button onclick="activateTerminal1()">Back</button>
+    `;
+}
+
+// Scene: Exit Terminal - Overseer Confrontation
+function exitTerminal1() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: "What the hell do you think you’re doing back here, dweller!?”</p>
+        <button onclick="justLeaving()">Just leaving.</button>
+        <button onclick="inTheFood()">What’s going on around here?</button>
+    `;
+}
+
+// Scene: Just Leaving
+function justLeaving() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: “I don’t think so. You know there are strict rules around here. Say, you look… you stopped eating. Didn’t you?”</p>
+        <button onclick="snackingAllDay()">*Lie* I’ve been snacking all day!</button>
+        <button onclick="inTheFood()">What’s in the food?</button>
+        <button onclick="thatsRight()">That’s right.</button>
+    `;
+}
+
+// Scene: Responses to Overseer
+function snackingAllDay() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: “Jeez, not you too. Alright alright. I’ll let it go this time. Just get the hell outta here!”</p>
+        <button onclick="goBackToRoom()">Leave</button>
+    `;
+}
+
+function inTheFood() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: “That is none of your business. I should lock you up for this.”</p>
+        <button onclick="illLeave()">I’m sorry. I’ll leave.</button>
+        <button onclick="tryLuck()">*Luck* Awe, c’mon. Can’t you cut me some slack?</button>
+    `;
+}
+
+function thatsRight() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: “You idiot. You couldn’t just play nice like the others. You had to start poking around. Well, I’m not going to tolerate it. I’m locking you up for good!”</p>
+        <button onclick="goToJail()">Continue</button>
+    `;
+}
+
+function illLeave() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: “Like hell you will. You’re coming with me!”</p>
+        <button onclick="goToJail()">Continue</button>
+    `;
+}
+
+// Luck-based Outcome
+function tryLuck() {
+    const outcome = Math.random() < 0.5 ? "cmon1" : "cmon2";
+    window[outcome]();
+}
+
+function cmon1() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: “*Success* Fine, I’ll let it go this time. Just get the hell outta here!”</p>
+        <button onclick="goBackToRoom()">Leave</button>
+    `;
+}
+
+function cmon2() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>Overseer: “*Failed* Not a chance. You’re coming with me.”</p>
+        <button onclick="goToJail()">Continue</button>
+    `;
+}
+
+// Scene: Go to Jail
+function goToJail() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>A Mr. Handy grabs you by the arm. Its metal pincher has a tight, painful grip on you. It pulls you along as the Overseer escorts it to the holding cell within the security room. You looked around for Charlie, but he wasn’t there. The Mr. Handy pushes you into the cell and closes the door.</p>
+        <p>Overseer: “That’ll teach you not to snoop around in my operation. Enjoy the rest of your miserable life.”</p>
+        <p>You sit on the cold metal bench. Your stomach growls loudly. It’s yelling at you. You slide down onto your side. With each blink, your eyes grow heavier.</p>
+        <button onclick="goToSleep1('day3cell.html')">Go to Sleep</button>
+    `;
+}
+
+// Scene: Go Back to Room
+function goBackToRoom() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <img src="roomDirty.png" alt="Dirty Room" style="width: 100%; border-radius: 15px; margin-bottom: 15px;">
+        <p>That was close. As you leave the door closes behind you. You’re met once again with the dimly lit rations room. You check your pip boy and see it’s time to clock out.</p>
+        <p>Once you get back to your room you decide to have a small snack. You need food, but you’re too close to the truth to go back now. As you begin to eat your mood lightens. The lights are brighter, your head is clearer, and for the first time all day, things seem like they might be ok.</p>
+        <button onclick="goToSleep2('day3room.html')">Go to Sleep</button>
+    `;
+}
+
+// temporary 'end of demo' message
+function  goToSleep2() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>end of demo</p>
+    `;
+}
+
+// temporary 'end of demo' message
+function  goToSleep1() {
+    const gameContent = document.getElementById("game-content");
+    gameContent.innerHTML = `
+        <p>end of demo</p>
+    `;
+}
+
+        startGame();
+    </script>
+</body>
+</html>
